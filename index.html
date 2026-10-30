@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0a0c10">
+<title>Arsenal Hub</title>
+<style>
+:root{--bg:#0a0c10;--panel:#131720;--panel2:#191f2a;--line:#252d3a;--muted:#8f9aaa;--red:#ef3340;--white:#f5f7fb;--green:#39c98a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:14px system-ui,-apple-system,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#0a0c10ed;backdrop-filter:blur(16px);padding:15px 17px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:10px;align-items:center;font-weight:900;letter-spacing:.7px}.crest{width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,#ff5962,#a90019);display:grid;place-items:center;font-size:19px}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;font-weight:700}
+.pill{border:1px solid #343c49;border-radius:30px;padding:7px 10px;color:#c8d0dc;font-size:11px}
+main{padding:16px 15px 92px;max-width:680px;margin:auto}.hero{border-radius:20px;overflow:hidden;position:relative;padding:20px;background:linear-gradient(120deg,#3d0711,#17141b 62%,#111722);border:1px solid #54202a;min-height:170px}
+.hero:after{content:"AFC";position:absolute;right:-8px;bottom:-25px;font-size:100px;font-weight:1000;color:#ffffff0b;letter-spacing:-8px}
+.kicker{color:#ff8189;font-size:10px;font-weight:800;letter-spacing:2px}.hero h1{font-size:28px;line-height:1.05;margin:9px 0}.hero p{color:#c4c8d0;margin:0;max-width:230px;font-size:12px;line-height:1.5}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 11px}.section-head h2{font-size:16px;margin:0}.sub{color:var(--muted);font-size:11px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.fixture{display:flex;align-items:center;justify-content:space-between;gap:10px}.team{display:flex;align-items:center;gap:8px;font-weight:750}.badge-team{width:31px;height:31px;border-radius:10px;background:#222a37;display:grid;place-items:center;font-size:11px;font-weight:900}.versus{color:#788394;font-size:10px}.meta{color:var(--muted);font-size:11px;margin-top:10px}
+.tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 8px;scrollbar-width:none}.tab{white-space:nowrap;border:1px solid var(--line);background:#11151d;color:#aeb8c7;border-radius:30px;padding:9px 13px;font-size:11px}.tab.active{background:#5c111c;border-color:#9d2533;color:#fff}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:8;background:#10141cf2;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 3px calc(9px + env(safe-area-inset-bottom));backdrop-filter:blur(18px)}
+nav button{background:none;border:0;color:#8792a2;font-size:10px;display:grid;gap:4px;justify-items:center;min-width:55px}nav button b{font-size:18px;font-weight:500}nav button.active{color:#ff5965}
+.view{display:none}.view.active{display:block}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.btn{border:0;border-radius:11px;background:var(--red);color:white;padding:10px 13px;font-weight:800;font-size:11px}.btn.secondary{background:#252d3a}.field{width:100%;background:#0d1118;border:1px solid #303949;border-radius:11px;padding:12px;color:white;margin:7px 0 13px;outline:none}.label{font-size:11px;color:#aab4c2}.empty{padding:23px;text-align:center;color:var(--muted);font-size:12px}.score{font-size:22px;font-weight:900}.status{font-size:10px;color:#ff777f;font-weight:800}.notice{background:#17231f;border:1px solid #28513e;color:#9de2bf;padding:11px;border-radius:12px;font-size:11px;line-height:1.5}
+a{color:#ff747e;text-decoration:none}.player{display:flex;align-items:center;gap:11px}.avatar{width:40px;height:40px;border-radius:13px;background:#252d3a;display:grid;place-items:center;font-weight:900}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="crest">A</div><div>ARSENAL HUB<small>THE GUNNERS • MATCH CENTER</small></div></div><span class="pill" id="connection">BELUM TERHUBUNG</span></header>
+<main>
+<section id="home" class="view active">
+ <div class="hero"><div class="kicker">NORTH LONDON IS RED</div><h1>ONE CLUB.<br>ONE COMMUNITY.</h1><p>Semua informasi Arsenal dalam satu tempat. Jadwal, hasil, skuad, dan pertandingan.</p></div>
+ <div class="section-head"><h2>Berikutnya</h2><span class="sub">Premier League</span></div><div id="next" class="card empty">Masukkan API key di Pengaturan untuk memuat jadwal resmi.</div>
+ <div class="section-head"><h2>Pertandingan terbaru</h2><span class="sub">Data API</span></div><div id="recent" class="card empty">Belum ada data pertandingan.</div>
+ <div class="section-head"><h2>Akses cepat</h2></div><div class="tabs"><button class="tab" onclick="show('schedule')">Jadwal</button><button class="tab" onclick="show('live')">Live score</button><button class="tab" onclick="show('squad')">Skuad</button><button class="tab" onclick="show('stream')">Streaming resmi</button></div>
+</section>
+<section id="schedule" class="view"><div class="section-head"><h2>Jadwal pertandingan</h2><span class="sub">Arsenal FC</span></div><div id="fixtures" class="empty">Memuat jadwal...</div></section>
+<section id="live" class="view"><div class="section-head"><h2>Live score</h2><span class="sub">Pembaruan otomatis 60 detik</span></div><div id="livegames" class="empty">Memeriksa pertandingan...</div></section>
+<section id="results" class="view"><div class="section-head"><h2>Hasil pertandingan</h2><span class="sub">Pertandingan selesai</span></div><div id="resultslist" class="empty">Memuat hasil...</div></section>
+<section id="squad" class="view"><div class="section-head"><h2>Skuad pemain</h2><span class="sub">Arsenal FC</span></div><div id="players" class="empty">Memuat skuad...</div></section>
+<section id="stream" class="view"><div class="section-head"><h2>Streaming resmi</h2></div><div class="card"><div class="kicker">OFFICIAL CONTENT</div><h3>Arsenal.com</h3><p class="sub">Video, wawancara, highlight, dan konten resmi klub.</p><p><a href="https://www.arsenal.com/video" target="_blank">Buka Arsenal Video ↗</a></p></div><div class="card"><h3>Premier League</h3><p class="sub">Cek daftar pemegang hak siar resmi sesuai negara dan wilayah.</p><a href="https://www.premierleague.com/" target="_blank">Situs Premier League ↗</a></div><div class="notice">Aplikasi ini hanya menampilkan tautan sumber resmi. Ketersediaan siaran langsung mengikuti hak siar dan wilayah kamu.</div></section>
+<section id="settings" class="view"><div class="section-head"><h2>Pengaturan API</h2></div><div class="card"><div class="notice">Data pertandingan menggunakan API-Football. API key disimpan di perangkat ini dan tidak dikirim ke server aplikasi.</div><label class="label">API-Football key</label><input id="apikey" class="field" type="password" placeholder="Masukkan API key kamu"><label class="label">Season</label><input id="season" class="field" type="number" value="2026"><button class="btn" onclick="saveSettings()">SIMPAN & HUBUNGKAN</button> <button class="btn secondary" onclick="clearKey()">HAPUS KEY</button><p class="sub">Arsenal team ID: 42 • Premier League ID: 39</p><p id="apiinfo" class="sub">Belum ada API key tersimpan.</p></div></section>
+</main>
+<nav>
+<button class="active" data-view="home" onclick="show('home',this)"><b>⌂</b>Beranda</button>
+<button data-view="schedule" onclick="show('schedule',this)"><b>▦</b>Jadwal</button>
+<button data-view="live" onclick="show('live',this)"><b>◉</b>Live</button>
+<button data-view="results" onclick="show('results',this)"><b>◷</b>Hasil</button>
+<button data-view="squad" onclick="show('squad',this)"><b>♙</b>Pemain</button>
+<button data-view="settings" onclick="show('settings',this)"><b>⚙</b>API</button>
+</nav>
+<script>
+const API='https://v3.football.api-sports.io';
+const TEAM=42, LEAGUE=39;
+let key=localStorage.getItem('af_key')||'', season=localStorage.getItem('af_season')||'2026';
+document.getElementById('apikey').value=key;document.getElementById('season').value=season;
+function show(id,el){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===id));if(el&&el.dataset.view)el.classList.add('active');if(id==='schedule')loadFixtures();if(id==='live')loadLive();if(id==='results')loadResults();if(id==='squad')loadPlayers()}
+function saveSettings(){key=document.getElementById('apikey').value.trim();season=document.getElementById('season').value||'2026';if(!key){alert('API key belum diisi');return}localStorage.setItem('af_key',key);localStorage.setItem('af_season',season);document.getElementById('apiinfo').textContent='Pengaturan tersimpan. Menguji koneksi...';loadAll()}
+function clearKey(){localStorage.removeItem('af_key');key='';document.getElementById('apikey').value='';document.getElementById('connection').textContent='BELUM TERHUBUNG';document.getElementById('apiinfo').textContent='API key dihapus dari perangkat.'}
+async function api(path){if(!key)throw Error('Tambahkan API key di menu API terlebih dahulu.');let r=await fetch(API+path,{headers:{'x-apisports-key':key}});let j=await r.json();if(!r.ok||j.errors&&Object.keys(j.errors).length)throw Error(JSON.stringify(j.errors||j.message||r.status));return j.response||[]}
+function date(s){return new Date(s).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fixtureCard(f){let h=f.teams?.home?.name||'Home',a=f.teams?.away?.name||'Away',g=f.goals||{};let status=f.fixture?.status?.short||'';let score=(g.home??'-')+' : '+(g.away??'-');return `<div class="card"><div class="fixture"><div class="team"><span class="badge-team">${esc(h.slice(0,3).toUpperCase())}</span>${esc(h)}</div><div class="score">${score}</div><div class="team">${esc(a)}<span class="badge-team">${esc(a.slice(0,3).toUpperCase())}</span></div></div><div class="row meta"><span>${date(f.fixture.date)}</span><span>${esc(f.league?.name||'')}</span></div><div class="meta">${esc(status)} ${f.fixture?.status?.elapsed?`• ${f.fixture.status.elapsed}'`:''} <button class="btn secondary" onclick="lineup(${f.fixture.id})">LINEUP</button></div><div id="lineup-${f.fixture.id}"></div></div>`}
+async function loadFixtures(){const el=document.getElementById('fixtures');try{let d=await api(`/fixtures?team=${TEAM}&season=${season}&next=20`);el.innerHTML=d.length?d.map(fixtureCard).join(''):'<div class="card empty">Tidak ada jadwal yang dikembalikan API.</div>';let n=d[0];document.getElementById('next').innerHTML=n?fixtureCard(n):'Belum ada jadwal berikutnya.'}catch(e){el.innerHTML=`<div class="card empty">${esc(e.message)}</div>`}}
+async function loadLive(){const el=document.getElementById('livegames');try{let d=await api(`/fixtures?team=${TEAM}&live=all`);el.innerHTML=d.length?d.map(fixtureCard).join(''):'<div class="card empty">Arsenal tidak sedang bertanding menurut data API.</div>'}catch(e){el.innerHTML=`<div class="card empty">${esc(e.message)}</div>`}}
+async function loadResults(){const el=document.getElementById('resultslist');try{let d=await api(`/fixtures?team=${TEAM}&season=${season}&last=20`);d=d.filter(x=>x.fixture.status.short==='FT'||x.fixture.status.short==='AET'||x.fixture.status.short==='PEN');el.innerHTML=d.length?d.map(fixtureCard).join(''):'<div class="card empty">Belum ada hasil selesai pada data yang tersedia.</div>';document.getElementById('recent').innerHTML=d[0]?fixtureCard(d[0]):'Belum ada hasil.'}catch(e){el.innerHTML=`<div class="card empty">${esc(e.message)}</div>`}}
+async function loadPlayers(){const el=document.getElementById('players');try{let d=await api(`/players/squads?team=${TEAM}`);let p=d[0]?.players||[];el.innerHTML=p.length?p.map(x=>`<div class="card player"><div class="avatar">${esc((x.name||'?').split(' ').map(y=>y[0]).slice(0,2).join(''))}</div><div><b>${esc(x.name)}</b><div class="sub">${esc(x.position||'Pemain')} • #${esc(x.number??'-')}</div></div></div>`).join(''):'<div class="card empty">Data skuad tidak tersedia.</div>'}catch(e){el.innerHTML=`<div class="card empty">${esc(e.message)}</div>`}}
+async function lineup(id){const el=document.getElementById('lineup-'+id);el.innerHTML='<div class="sub">Memuat susunan pemain...</div>';try{let d=await api(`/fixtures/lineups?fixture=${id}`);el.innerHTML=d.length?d.map(t=>`<div class="card"><b>${esc(t.team.name)}</b><div class="sub">Formasi ${esc(t.formation||'-')} • Pelatih ${esc(t.coach?.name||'-')}</div>${(t.startXI||[]).map(p=>`<div class="sub">${esc(p.player.number)} · ${esc(p.player.name)} (${esc(p.player.pos)})</div>`).join('')}</div>`).join(''):'<div class="sub">Lineup belum dirilis oleh penyedia data.</div>'}catch(e){el.innerHTML=`<div class="sub">${esc(e.message)}</div>`}}
+async function loadAll(){document.getElementById('connection').textContent='MENGHUBUNGKAN';try{await api(`/teams?id=${TEAM}`);document.getElementById('connection').textContent='API TERHUBUNG';document.getElementById('apiinfo').textContent='Koneksi API berhasil.';loadFixtures();loadResults();}catch(e){document.getElementById('connection').textContent='API ERROR';document.getElementById('apiinfo').textContent=e.message}}
+if(key)loadAll();setInterval(()=>{if(key&&document.getElementById('live').classList.contains('active'))loadLive()},60000);
+</script>
+</body></html>
